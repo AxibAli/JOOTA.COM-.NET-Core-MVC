@@ -1,20 +1,27 @@
-﻿using Joota.com.Data.Enums;
+﻿using Joota.com.Data;
+using Joota.com.Data.Base;
+using Joota.com.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Joota.com.Models
 {
-    public class Shoes
+    public class Shoes : IEntityBase
     {
         [Key]
-        public int Id { get; set; } 
-        
-        public string Name { get; set; }    
+        public int Id { get; set; }
 
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Discription")]
         public  string Description { get; set; }
 
+        [Display(Name = "Price")]
         public double Price { get; set; }
 
+        [Display(Name = "Image URL")]
         public string ImageURL { get; set; }
+
 
         public int Quantity { get; set; }
 

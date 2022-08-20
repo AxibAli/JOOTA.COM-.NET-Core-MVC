@@ -1,4 +1,5 @@
 using Joota.com.Data;
+using Joota.com.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IShoeService, ShoeService>();
 
 
 
@@ -33,5 +34,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//seed database
+AppDbInitiallizer.Seed(app);
 
 app.Run();

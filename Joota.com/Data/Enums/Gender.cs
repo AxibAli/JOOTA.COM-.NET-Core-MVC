@@ -1,6 +1,9 @@
 ﻿namespace Joota.com.Data.Enums
 {
-    public class Gender
+    public enum  Gender
     {
+        Action = 1,
+        Female,
+        male
     }
 }

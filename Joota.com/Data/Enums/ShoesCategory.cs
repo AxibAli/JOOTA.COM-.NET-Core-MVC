@@ -1,6 +1,14 @@
 ﻿namespace Joota.com.Data.Enums
 {
-    public class ShoesCategory
+    public enum ShoesCategory
     {
+        Action = 1,
+        Sneakers,
+        Loafers,
+        Sandals,
+        Oxfords,
+        FlipFlop,
+        Pumps,
+        Heels
     }
 }
