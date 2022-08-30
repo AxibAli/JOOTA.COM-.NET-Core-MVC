@@ -1,6 +1,8 @@
 ﻿using Joota.com.Data;
 using Joota.com.Data.Services;
+using Joota.com.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Joota.com.Controllers
@@ -18,7 +20,7 @@ namespace Joota.com.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var allshoes = await _service.GetAllAsync(n => n.Name);
+            var allshoes = await _service.GetAllAsync();
             return View(allshoes);
         }
 
@@ -30,11 +32,62 @@ namespace Joota.com.Controllers
         }
 
         //Get: ,Movies/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["welcome"] = "welcome to our store";
-            ViewBag.Description = "This is the store desription";
+            var ShoeDropDownData = await _service.GetNewShoeDropDownValues();
+            ViewBag.Id = new SelectList(ShoeDropDownData.Shoes, "Id", "Name");
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(NewShoeVM Shoe)
+        {
+            if(!ModelState.IsValid)
+            {
+                var ShoeDropDownData = await _service.GetNewShoeDropDownValues();
+                ViewBag.Id = new SelectList(ShoeDropDownData.Shoes, "Id", "Name");
+                return View();
+            }
+
+            await _service.AddNewShoeAsync(Shoe);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+
+        //Get: ,Movies/Edit/1
+        public async Task<IActionResult> Edit(int id)
+        {
+            var ShoeDetails  = await _service.GetShoesByIdAsync(id);
+            if (ShoeDetails == null) return View("Not Found");
+            var response = new NewShoeVM()
+            {
+                Id = ShoeDetails.Id,
+                Name = ShoeDetails.Name,
+                Description = ShoeDetails.Description,
+                Price = ShoeDetails.Price,
+                ImageURL = ShoeDetails.ImageURL,
+                Quantity = ShoeDetails.Quantity,
+                ShoesCategory = ShoeDetails.ShoesCategory
+
+            };
+
+            var ShoeDropDownData = await _service.GetNewShoeDropDownValues();
+            ViewBag.Id = new SelectList(ShoeDropDownData.Shoes, "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, NewShoeVM shoe)
+        {
+            if (id != shoe.Id) return View("Not Found");
+            if (!ModelState.IsValid)
+            {
+                var ShoeDropDownData = await _service.GetNewShoeDropDownValues();
+                ViewBag.Id = new SelectList(ShoeDropDownData.Shoes, "Id", "Name");
+                return View();
+            }
+
+            await _service.UpdateShoeAsync(Shoe);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

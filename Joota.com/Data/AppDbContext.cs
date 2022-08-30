@@ -12,5 +12,9 @@ namespace Joota.com.Data
 
         public DbSet<Shoes> Shoes { get; set; }
 
+        //Orders Related Tables
+        public DbSet<Order> Orders  { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
     }
 }

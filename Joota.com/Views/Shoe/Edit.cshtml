@@ -2,13 +2,13 @@
 @model Joota.com.Models.NewShoeVM
 
 @{
-    ViewData["Title"] = "Create a new shoe entry";
+    ViewData["Title"] = "Update Shoe";
 }
 
 <div  class="row">
     <div class="col-md-8 offset-2">
         <p>
-            <h4>       abc    </h4>
+            <h4>    Update Shoe Details   </h4>
         </p>
 
         <div class="row">
@@ -85,7 +85,7 @@
                   </div>
 
                   <div class="form-group ">
-                      <input type="submit" value="create" class="btn-outline-success float-right"/>
+                      <input type="submit" value="Update" class="btn-outline-success float-right"/>
                       <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
 
                   </div>
@@ -105,6 +105,11 @@
 
 @section Scripts{
     <script>
+
+$(document).ready(function() {
+    var output = document.getElementById("ImageURLPreview");
+    output.src = $("#ImageURL").val();
+});
        $("ImageURL").on("charge", function() {
          var output = document.getElementById("ImageURLPreview");
          output.src = $(this).val();

@@ -19,15 +19,20 @@ namespace Joota.com.Data.Services
             await _context.SaveChangesAsync();
         }
 
-
-        public async Task DeleteAsync(int id)
+        public Task DeleteAsync(int id)
         {
-            var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
-            EntityEntry entityEntry = _context.Entry<T>(entity);
-            entityEntry.State = EntityState.Deleted;
-
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
+
+
+        //public async Task DeleteAsync(int id)
+        //{
+        //    var entity = await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+        //    EntityEntry entityEntry = _context.Entry<T>(entity);
+        //    entityEntry.State = EntityState.Deleted;
+
+        //    await _context.SaveChangesAsync();
+        //}
 
         public async Task<IEnumerable<T>> GetAllAsyn() => await _context.Set<T>().ToListAsync();
 
@@ -38,9 +43,12 @@ namespace Joota.com.Data.Services
             return await query.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.id == id);
 
-
+        public Task<T> GetShoesByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task UpdateAsync(int id, T entity)
         {
