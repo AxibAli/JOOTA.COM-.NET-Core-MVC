@@ -1,4 +1,5 @@
 using Joota.com.Data;
+using Joota.com.Data.Cart;
 using Joota.com.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +12,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IShoeService, ShoeService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
+builder.Services.AddSession();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -28,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 

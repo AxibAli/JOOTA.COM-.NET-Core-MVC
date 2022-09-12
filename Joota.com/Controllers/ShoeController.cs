@@ -86,7 +86,7 @@ namespace Joota.com.Controllers
                 return View();
             }
 
-            await _service.UpdateShoeAsync(Shoe);
+            await _service.UpdateShoeAsync(shoe);
             return RedirectToAction(nameof(Index));
         }
     }
