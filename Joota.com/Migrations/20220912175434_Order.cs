@@ -4,7 +4,7 @@
 
 namespace Joota.com.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Order : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,9 +26,8 @@ namespace Joota.com.Migrations
                 name: "Shoes",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
@@ -40,7 +39,7 @@ namespace Joota.com.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shoes", x => x.id);
+                    table.PrimaryKey("PK_Shoes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +66,28 @@ namespace Joota.com.Migrations
                         name: "FK_OrderItems_Shoes_ShoeId",
                         column: x => x.ShoeId,
                         principalTable: "Shoes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ShoesId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_Shoes_ShoesId",
+                        column: x => x.ShoesId,
+                        principalTable: "Shoes",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -80,12 +100,20 @@ namespace Joota.com.Migrations
                 name: "IX_OrderItems_ShoeId",
                 table: "OrderItems",
                 column: "ShoeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_ShoesId",
+                table: "ShoppingCartItems",
+                column: "ShoesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
                 name: "Orders");

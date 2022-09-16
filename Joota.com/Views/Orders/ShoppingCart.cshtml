@@ -6,13 +6,14 @@
 }
 
 <div class="row">
+    
    <div class="col-md-8 offset-2">
        <div class="text-center">
          <h2>Your Shopping Cart Summary</h2>
         </div>
 
         <table class="table">
-            <thead
+            <thead>
                 <tr>
                 <th>Selected amount</th>
                 <th>Shoes</th>
@@ -36,10 +37,7 @@
                              <i class="bg-info bi-cart-dash"></i>
                            </a>
 
-                            <a class="text-center" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart"
-                           asp-route-id="@item.Shoes.Id">
-                                <i class="bg-info bi-cart-dash"></i>
-                            </a>
+                           
                             <a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart"
                            asp-route-id="@item.Shoes.Id">
                                 <i class="bg-info bi-cart-plus"></i>

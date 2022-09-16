@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Joota.com.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220907190617_Initial1")]
-    partial class Initial1
+    [Migration("20220912175434_Order")]
+    partial class Order
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,20 +75,17 @@ namespace Joota.com.Migrations
 
             modelBuilder.Entity("Joota.com.Models.Shoes", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
@@ -111,9 +108,34 @@ namespace Joota.com.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Shoes");
+                });
+
+            modelBuilder.Entity("Joota.com.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShoppingCartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShoesId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Joota.com.Models.OrderItem", b =>
@@ -131,6 +153,17 @@ namespace Joota.com.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("Shoes");
+                });
+
+            modelBuilder.Entity("Joota.com.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("Joota.com.Models.Shoes", "Shoes")
+                        .WithMany()
+                        .HasForeignKey("ShoesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Shoes");
                 });

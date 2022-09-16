@@ -43,11 +43,12 @@ namespace Joota.com.Data.Services
             return await query.ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.id == id);
+        public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
 
-        public Task<T> GetShoesByIdAsync(int id)
+        public async Task<T> GetShoesByIdAsync(int id)
         {
-            throw new NotImplementedException();
+           var result =  await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);
+            return (result);
         }
 
         public async Task UpdateAsync(int id, T entity)

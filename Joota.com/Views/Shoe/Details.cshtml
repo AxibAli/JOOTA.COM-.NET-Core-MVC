@@ -1,4 +1,5 @@
-﻿@model Shoes
+﻿@using Joota.com.Data.Enums
+@model Joota.com.Models.Shoes
 
     @{
         ViewData["Title"] = "Shoes Details";
@@ -24,7 +25,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <img src="@Model.ImageURL" width="100" alt="Name">
+                        <img src="@Model.ImageURL" width="100%" alt="@Model.Name">
                         
                     </div>
                     <div class="col-md-8">

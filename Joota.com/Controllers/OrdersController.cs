@@ -24,7 +24,7 @@ namespace Joota.com.Controllers
             return View(orders);
         }
 
-        public IActionResult Index()
+        public IActionResult ShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
             _shoppingCart.ShoppingCartItem = items;
@@ -36,7 +36,7 @@ namespace Joota.com.Controllers
             return View(response);
         }
 
-        public async Task <IActionResult> AddItemToShoppingCart(int id)
+        public async Task <RedirectToActionResult> AddItemToShoppingCart(int id)
         {
             var item = await _shoeService.GetShoesByIdAsync(id);
 

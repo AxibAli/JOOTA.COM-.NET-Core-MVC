@@ -8,9 +8,6 @@ namespace Joota.com.Models
 {
     public class Shoes : IEntityBase
     {
-        [Key]
-
-        public int id { get; set; }
         public int Id { get; set; }
 
         [Display(Name = "Name")]
@@ -22,10 +19,8 @@ namespace Joota.com.Models
         [Display(Name = "Price")]
         public double Price { get; set; }
 
-        [Display(Name = "Image URL")]
+        //[Display(Name = "Image URL")]
         public string ImageURL { get; set; }
-
-
         public int Quantity { get; set; }
 
         public int Size { get; set; }
@@ -34,7 +29,7 @@ namespace Joota.com.Models
 
         public Gender Gender { get; set; }
 
-        
+
     }
 }
 

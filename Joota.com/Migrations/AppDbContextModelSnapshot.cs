@@ -73,20 +73,17 @@ namespace Joota.com.Migrations
 
             modelBuilder.Entity("Joota.com.Models.Shoes", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
@@ -109,7 +106,7 @@ namespace Joota.com.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Shoes");
                 });
@@ -125,7 +122,7 @@ namespace Joota.com.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Shoesid")
+                    b.Property<int>("ShoesId")
                         .HasColumnType("int");
 
                     b.Property<string>("ShoppingCartId")
@@ -134,7 +131,7 @@ namespace Joota.com.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Shoesid");
+                    b.HasIndex("ShoesId");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -162,7 +159,7 @@ namespace Joota.com.Migrations
                 {
                     b.HasOne("Joota.com.Models.Shoes", "Shoes")
                         .WithMany()
-                        .HasForeignKey("Shoesid")
+                        .HasForeignKey("ShoesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
